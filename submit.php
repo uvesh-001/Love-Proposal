@@ -7,10 +7,10 @@ use Twilio\Rest\Client;
 $response = $_POST['response'];
 
 // Twilio credentials
-$sid = 'AC8691de5a817efeb82bf247dfeffc79d8';
-$token = 'fcb84e1ca8f72a815f4649a51422894f';
-$from = '+17244094291';
-$to = '+917283820286';
+$sid = '[Twilio SID]';
+$token = '[Twilio Token]';
+$from = '[Phone number for message from]';
+$to = '[Your Phone number]';
 
 $client = new Client($sid, $token);
 
