@@ -1,0 +1,39 @@
+<?php
+// Load Twilio SDK
+require_once 'vendor/autoload.php';
+use Twilio\Rest\Client;
+
+// Get form data
+$response = $_POST['response'];
+
+// Twilio credentials
+$sid = 'AC8691de5a817efeb82bf247dfeffc79d8';
+$token = 'fcb84e1ca8f72a815f4649a51422894f';
+$from = '+17244094291';
+$to = '+917283820286';
+
+$client = new Client($sid, $token);
+
+// Message to be sent via SMS
+$messageBody = "Love Letter Response: $response from $user.";
+
+try {
+    $client->messages->create($to, [
+        'from' => $from,
+        'body' => $messageBody
+    ]);
+
+    // Redirect based on response
+    if ($response === "Yes") {
+        // Redirect to thank_you.php if response is "Yes"
+        header("Location: thank_you.php");
+        exit();
+    } else {
+        // Redirect to message_sent.php if response is "No"
+        header("Location: message_sent.php");
+        exit();
+    }
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
+?>

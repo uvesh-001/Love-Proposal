@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Letter</title>
+    <style>
+        /* Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Background */
+        body {
+            font-family: 'Playfair Display', serif;
+            background: url('mygif.gif') no-repeat center center fixed;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Container */
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 40px;
+            width: 100%;
+            max-width: 700px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+            animation: fadeInContainer 1s ease-in-out;
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+
+        /* Fade-in Animation */
+        @keyframes fadeInContainer {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Heading */
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5em;
+            color: #ff5c8d;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Text Styling */
+        p {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #e0e0e0;
+            margin-bottom: 20px;
+        }
+
+        /* Romantic Font for Specific Parts */
+        .romantic-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5em;
+            color: #ff8da1;
+            font-weight: bold;
+        }
+
+        /* Radio Button Styling */
+        .radio-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            animation: fadeInRadio 1s ease 1.5s forwards;
+        }
+
+        .radio-container label {
+            font-size: 1.2em;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        input[type="radio"] {
+            accent-color: #ff5c8d;
+            transform: scale(1.5);
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        input[type="radio"]:checked {
+            background-color: #ff5c8d;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.5em; }
+            p { font-size: 1em; }
+        }
+
+        /* Message Display */
+        #message {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #ff8da1;
+            font-weight: bold;
+            display: none; /* Hide the message by default */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dear $user,</h1>
+        <p>
+            As an introvert, expressing my feelings isn’t always easy. But I hope you’ll understand the depth of my emotions. Your dedication to the noble profession of medicine is truly inspiring.
+        </p>
+        <p>
+            I treasure the time I spent with you, a precious gift for me, a perfect harmony of mind and heart. I love the sound of your laughter, the sparkle in your eyes when you talk. The thought of you, tirelessly pursuing your dreams, fills me with a sense of pride and love.
+        </p>
+        <p>
+            So here it is: I have fallen for you, deeply and truly. I want to be the one who makes you smile and the one who holds your hand as we navigate this journey called life. I don’t know what the future holds, but I know that I want you to be a part of it.
+        </p>
+        <p>
+            I understand the demanding nature of your medical journey, the countless hours spent poring over textbooks.
+        </p>
+        <p>
+            But, I, Uvesh, will patiently wait, like a cell undergoing mitosis, for the day when our paths intertwine. Until then, may your studies be fruitful, your diagnoses accurate, and your future bright.
+        </p>
+        <p class="romantic-text">
+            With deepest respect and affection, <br>
+            <strong>Uvesh</strong>
+        </p>
+        <p class="romantic-text">
+            I hope to cherishably spend my life with you.
+        </p>
+        <p class="romantic-text">
+            Will you be mine, a harmonious partner in this journey of life, $user?
+        </p>
+
+        <form id="loveForm">
+            <div class="radio-container">
+                <label><input type="radio" name="response" value="Yes" onclick="handleResponse('Yes')"> Yes</label>
+                <label><input type="radio" name="response" value="No" onclick="handleResponse('No')"> No</label>
+            </div>
+        </form>
+
+        <!-- Message display -->
+        <p id="message">Message sent successfully!</p>
+    </div>
+
+    <script>
+        // Handle the response dynamically and redirect to thank_you.php if "Yes"
+        function handleResponse(response) {
+            const formData = new FormData();
+            formData.append('response', response);
+
+            // Fetch API to submit the form asynchronously
+            fetch('submit.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (response === 'Yes') {
+                    window.location.href = 'thank_you.php'; // Redirect to thank-you page if 'Yes'
+                } else if (response === 'No') {
+                    // Show "Message sent successfully" if 'No' is selected
+                    window.location.href = 'message_sent.php';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
